@@ -9,8 +9,8 @@ using RecordStore.Models;
 namespace RecordStore.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220427210159_SecondMigrations")]
-    partial class SecondMigrations
+    [Migration("20220506195244_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

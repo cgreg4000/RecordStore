@@ -65,6 +65,7 @@ namespace RecordStore.Controllers
         [HttpGet("register")]
         public IActionResult Register()
         {
+            ViewBag.AllUsers = _context.Users.ToList();
             return View();
         }
 
@@ -72,7 +73,7 @@ namespace RecordStore.Controllers
         public IActionResult CreateUser(User newUser)
         {
             if (ModelState.IsValid)
-            {
+            {   
                 if (_context.Users.Any(a => a.Email == newUser.Email))
                 {
                     ModelState.AddModelError("Email", "Email address is already in use.");
@@ -145,7 +146,6 @@ namespace RecordStore.Controllers
                 ViewBag.Choice = HttpContext.Session.GetString("Choice");
             }
             ViewBag.LoggedInUser = _context.Users.FirstOrDefault(a => a.UserId == (int)HttpContext.Session.GetInt32("UserId"));
-            ViewBag.AllUsers = _context.Users.ToList();
             ViewBag.AllRecords = _context.Records.ToList();
             ViewBag.AllOrders = _context.Orders.Include(a => a.Buyer).Include(b => b.Record).ToList();
             return View();

@@ -39,7 +39,7 @@ namespace RecordStore.Migrations
                     Genre = table.Column<string>(nullable: false),
                     Price = table.Column<double>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
+                    Spotify = table.Column<string>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
@@ -63,6 +63,7 @@ namespace RecordStore.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false),
                     RecordId = table.Column<int>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
                     QuantityBought = table.Column<int>(nullable: false),
                     OrderTotal = table.Column<double>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),

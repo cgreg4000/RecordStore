@@ -59,7 +59,16 @@
                                 <input asp-for="Confirm" class="form-control form-control-lg" />
                                 <span class="text-danger" asp-validation-for="Confirm"></span>
                             </div>
-                            <input type="hidden" asp-for="UserType" value="User">
+                            @{
+                                if (ViewBag.AllUsers.Count == 0)
+                                {
+                                    <input type="hidden" asp-for="UserType" value="Administrator">
+                                }
+                                else
+                                {
+                                    <input type="hidden" asp-for="UserType" value="User">
+                                }
+                            }
                             <div class="d-flex justify-content-center">
                                 <input type="submit" class="btn btn-dark" value="Register">
                             </div>
