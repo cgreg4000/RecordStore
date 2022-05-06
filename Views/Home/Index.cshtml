@@ -1,0 +1,120 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-3 pl-5 pr-5 mr-5 ml-5">
+    <h1><a class="text-body text-decoration-none display-4" href="/home">RecordStore</a></h1>
+    <div class="text-center d-flex">
+        @{
+            if (ViewBag.LoggedInUser == null)
+            {
+                <div>
+                    <a class="btn btn-dark" href="/register">Register</a>
+                    <a class="btn btn-dark ml-4" href="/login">Login</a>
+                </div>
+            }
+            else
+            {
+                <h3>Welcome @ViewBag.LoggedInUser.FirstName!</h3>
+                <div class="d-flex align-items-center">
+                    @{
+                        if (ViewBag.LoggedInUser.UserType == "Administrator")
+                        {
+                            <h5><a class="ml-4 text-body text-decoration-none" href="/admin/dashboard">Admin Dashboard</a></h5>
+                        }
+                        else
+                        {
+                            <h5><a class="ml-4 text-body text-decoration-none" href="/users/myorders/@ViewBag.LoggedInUser.UserId">My Orders</a></h5>
+                        }
+                    }
+                    <h5><a class="ml-4 text-body text-decoration-none" href="/logout">Logout</a></h5>
+                </div>
+            }
+        }
+    </div>
+</div>
+<hr>
+
+<div class="d-flex pl-5 pr-5 ml-5 mr-5">
+    <div class="mr-3 mt-3 col-2">
+        <form action="/records/search" method="post">
+            <div class="form-group">
+                <input type="search" name="Search" class="form-control">
+                <input type="submit" class="btn btn-dark float-right mt-2" value="Search">
+            </div>
+        </form>
+    </div>
+    <div class="d-flex flex-wrap col-10">
+        @{
+            if (ViewBag.Search == null || ViewBag.Search == "")
+            {
+                @foreach (Record r in ViewBag.AllRecords)
+                {
+                    <div class="card m-3 album" style="width: 14rem;">
+                        <img class="card-img-top" src="@r.Cover" alt="@r.Title">
+                        <div class="card-body">
+                            <h5 class="card-title"><a class="text-body stretched-link text-decoration-none"
+                            href="/records/@r.RecordId">@r.Title</a></h5>
+                            <p class="card-text">@r.Artist</p>
+                            <p class="card-text">$@r.Price</p>
+                            @{
+                                if (r.Quantity == 0)
+                                {
+                                    <p class="text-danger">OUT OF STOCK</p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">@r.Quantity in stock</p>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                bool found = false;
+                @foreach (Record r in ViewBag.AllRecords)
+                {
+                    if (r.Artist.Contains(ViewBag.Search, StringComparison.OrdinalIgnoreCase) || r.Title.Contains(ViewBag.Search,
+                    StringComparison.OrdinalIgnoreCase))
+                    {
+                        found = true;
+                    }
+                }
+                if (found)
+                {
+                    foreach (Record r in ViewBag.AllRecords)
+                    {
+                        if (r.Artist.Contains(ViewBag.Search, StringComparison.OrdinalIgnoreCase) || r.Title.Contains(ViewBag.Search,
+                        StringComparison.OrdinalIgnoreCase))
+                        {
+                            <div class="card mt-3 mb-3 ml-3 album" style="width: 14rem;">
+                                <img class="card-img-top" src="@r.Cover" alt="@r.Title">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="/records/@r.RecordId">@r.Title</a></h5>
+                                    <p class="card-text">@r.Artist</p>
+                                    <p class="card-text">$@r.Price</p>
+                                    @{
+                                        if (r.Quantity == 0)
+                                        {
+                                            <p class="text-danger">OUT OF STOCK</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text">@r.Quantity in stock</p>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <h2>No records found matching that search.</h2>
+                }
+            }
+        }
+    </div>
+</div>

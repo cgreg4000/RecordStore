@@ -1,0 +1,98 @@
+@{
+    ViewData["Title"] = "@ViewBag.OneRecord.Title";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-3 pl-5 pr-5 mr-5 ml-5">
+    <h1><a class="text-body text-decoration-none display-4" href="/home">RecordStore</a></h1>
+    <div class="text-center d-flex">
+        @{
+            if (ViewBag.LoggedInUser == null)
+            {
+                <div>
+                    <a class="btn btn-dark" href="/register">Register</a>
+                    <a class="btn btn-dark ml-4" href="/login">Login</a>
+                </div>
+            }
+            else
+            {
+                <h3>Welcome @ViewBag.LoggedInUser.FirstName!</h3>
+                <div class="d-flex align-items-center">
+                    @{
+                        if (ViewBag.LoggedInUser.UserType == "Administrator")
+                        {
+                            <h5><a class="ml-4 text-body text-decoration-none" href="/admin/dashboard">Admin Dashboard</a></h5>
+                        }
+                        else
+                        {
+                            <h5><a class="ml-4 text-body text-decoration-none" href="/users/myorders/@ViewBag.LoggedInUser.UserId">My Orders</a></h5>
+                        }
+                    }
+                    <h5><a class="ml-4 text-body text-decoration-none" href="/logout">Logout</a></h5>
+                </div>
+            }
+        }
+    </div>
+</div>
+<hr>
+
+<div class="container">
+    <div class="row">
+        <div class="card col-6 border-0" style="width: 24rem;">
+            <img class="card-img-top" src="@ViewBag.OneRecord.Cover" alt="@ViewBag.OneRecord.Title">
+            <div class="card-body">
+                <h4 class="card-title">@ViewBag.OneRecord.Title</h4>
+                <h6 class="card-text">@ViewBag.OneRecord.Artist</h6>
+                <h6 class="card-text">@ViewBag.OneRecord.Genre</h6>
+            </div>
+        </div>
+        <div class="col-6">
+            <iframe style="border-radius:12px" src="@ViewBag.OneRecord.Spotify" width="100%" height="380"
+                frameBorder="0" allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <h5 class="mt-2">Price: $@ViewBag.OneRecord.Price</h5>
+            @{
+                if (ViewBag.LoggedInUser == null)
+                {
+                    if (ViewBag.OneRecord.Quantity == 0)
+                    {
+                        <h3 class="text-danger mt-5 text-center">OUT OF STOCK</h3>
+                    }
+                    else
+                    {
+                        <h5 class="mt-2">In Stock: @ViewBag.OneRecord.Quantity</h5>
+                        <h3 class="mt-3 text-center"><a class="text-body text-decoration-none" href="/register">Register</a> or <a
+                        class="text-body text-decoration-none" href="/login">Login</a> to purchase</h3>
+                    }
+                }
+                else if (ViewBag.LoggedInUser.UserType == "Administrator")
+                {
+                    <h5 class="mt-2">In Stock: @ViewBag.OneRecord.Quantity</h5>
+                    <a class="btn btn-dark mt-2 mr-2" href="/records/edit/@ViewBag.OneRecord.RecordId">Edit</a>
+                    <a class="btn btn-danger mt-2" href="/records/delete/@ViewBag.OneRecord.RecordId">Delete</a>
+                }
+                else
+                {
+                    if (ViewBag.OneRecord.Quantity == 0)
+                    {
+                        <h3 class="text-danger mt-5 text-center">OUT OF STOCK</h3>
+                    }
+                    else
+                    {
+                        <h5 class="mt-2">In Stock: @ViewBag.OneRecord.Quantity</h5>
+                        <form class="mt-3" action="/records/buy/@ViewBag.OneRecord.RecordId" method="post">
+                            <select name="Quantity" class="form-control">
+                                @{
+                                    for (int i = 1; i <= ViewBag.OneRecord.Quantity; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                            <input type="submit" value="Buy" class="btn btn-dark mt-3">
+                        </form>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

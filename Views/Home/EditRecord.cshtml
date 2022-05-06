@@ -1,0 +1,77 @@
+@{
+    ViewData["Title"] = "Edit Record";
+}
+
+@model Record
+
+<div class="d-flex justify-content-between align-items-center mt-3 pl-5 pr-5 mr-5 ml-5">
+    <h1><a class="text-body text-decoration-none display-4" href="/admin/dashboard">RecordStoreAdmin</a></h1>
+    <div class="text-center d-flex">
+        <h3>Welcome @ViewBag.LoggedInUser.FirstName!</h3>
+        <div class="d-flex align-items-center">
+            <h5><a class="ml-4 text-body text-decoration-none" href="/admin/dashboard">Admin Dashboard</a></h5>
+            <h5><a class="ml-4 text-body text-decoration-none" href="/logout">Logout</a></h5>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container w-50">
+    <h2>Edit @Model.Title</h2>
+    <form action="/records/update/@Model.RecordId" method="post">
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input class="form-control" asp-for="Title">
+            <span class="text-danger" asp-validation-for="Title"></span>
+        </div>
+        <div class="form-group">
+            <label for="Artist">Artist</label>
+            <input class="form-control" asp-for="Artist">
+            <span class="text-danger" asp-validation-for="Artist"></span>
+        </div>
+        <div class="form-group">
+            <label for="Genre">Genre</label>
+            <select class="form-control" asp-for="Genre">
+                <option value="Alternative Rock">Alternative Rock</option>
+                <option value="Blues">Blues</option>
+                <option value="Classical">Classical</option>
+                <option value="Classic Rock">Classic Rock</option>
+                <option value="Country">Country</option>
+                <option value="Dance & Electronic">Dance & Electronic</option>
+                <option value="Folk">Folk</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Latin">Latin</option>
+                <option value="Metal">Metal</option>
+                <option value="New Age">New Age</option>
+                <option value="Pop">Pop</option>
+                <option value="R&B">R&B</option>
+                <option value="Rap & Hip-Hop">Rap & Hip-Hop</option>
+                <option value="Reggae">Reggae</option>
+                <option value="Rock">Rock</option>
+                <option value="Soundtrack">Soundtrack</option>
+                <option value="World">World</option>
+            </select>
+            <span class="text-danger" asp-validation-for="Genre"></span>
+        </div>
+        <div class="form-group">
+            <label for="Cover">Cover</label>
+            <input class="form-control" asp-for="Cover">
+            <span class="text-danger" asp-validation-for="Cover"></span>
+        </div>
+        <div class="form-group">
+            <label for="Spotify">Spotify</label>
+            <input class="form-control" asp-for="Spotify">
+            <span class="text-danger" asp-validation-for="Spotify"></span>
+        </div>
+        <div class="form-group">
+            <label for="Price">Price</label>
+            <input type="number" step="0.01" class="form-control" asp-for="Price">
+            <span class="text-danger" asp-validation-for="Price"></span>
+        </div>
+        <div class="form-group">
+            <label for="Quantity">Quantity</label>
+            <input class="form-control" asp-for="Quantity">
+            <span class="text-danger" asp-validation-for="Quantity"></span>
+        </div>
+        <input class="btn btn-dark" type="Submit" value="Update">
+    </form>
+</div>

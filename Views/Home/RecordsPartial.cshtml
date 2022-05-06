@@ -1,0 +1,25 @@
+<table class="table table-striped">
+    <tr>
+        <th>Record ID</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+    </tr>
+    @{
+        foreach (Record r in ViewBag.AllRecords)
+        {
+            <tr>
+                <th>@r.RecordId</th>
+                <th>@r.Title</th>
+                <th>@r.Artist</th>
+                <th>@r.Price</th>
+                <th>@r.Quantity</th>
+                <th><a href="/records/@r.RecordId" class="text-body text-decoration-none">View</a> | <a
+                    href="/records/edit/@r.RecordId" class="text-body text-decoration-none">Edit</a> | <a
+                    href="/records/delete/@r.RecordId" class="text-danger text-decoration-none">Delete</a></th>
+            </tr>
+        }
+    }
+</table>
