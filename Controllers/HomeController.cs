@@ -87,6 +87,7 @@ namespace RecordStore.Controllers
                 HttpContext.Session.SetString("UserType", newUser.UserType);
                 return RedirectToAction("Index");
             }
+            ViewBag.AllUsers = _context.Users.ToList();
             return View("Register");
         }
 
