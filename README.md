@@ -11,4 +11,5 @@ This is a project I started created at the end of the C#/ASP.NET track in my tim
 ● Built using C# as the primary language on ASP.Net Core framework utilizing Entity Framework Core to work with a MySQL database.
 
 ● App features CRUD commands when logged in as an administrator allowing you to add, view, update and delete records. Try it out using - email: admin@recordstore, password: recordstore
+
 ● Features login and registration capabilities with user authentication utilizing Bcrypt and validations.
