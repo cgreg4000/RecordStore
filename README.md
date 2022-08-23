@@ -1,6 +1,6 @@
 # RecordStore
 
-Check it out here - (http://3.19.143.153/)
+Check it out here - (https://youtu.be/YXYfs-DHoQI)
 
 **Purpose**
 
