@@ -1,0 +1,27 @@
+<table class="table table-striped">
+    <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Record</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>OrderTotal</th>
+        <th>Actions</th>
+    </tr>
+    @{
+        foreach (Order o in ViewBag.AllOrders)
+        {
+            <tr>
+                <th>@o.OrderId</th>
+                <th>@o.CreatedAt.ToString("MMMM dd, yyyy")</th>
+                <th>@o.Buyer.FirstName @o.Buyer.LastName</th>
+                <th>@o.Record.Title</th>
+                <th>@o.Price</th>
+                <th>@o.QuantityBought</th>
+                <th>@o.OrderTotal</th>
+                <th><a href="/orders/delete/@o.OrderId" class="text-danger text-decoration-none">Cancel</a></th>
+            </tr>
+        }
+    }
+</table>

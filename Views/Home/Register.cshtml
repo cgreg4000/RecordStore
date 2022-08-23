@@ -1,0 +1,83 @@
+@{
+    ViewData["Title"] = "Register";
+}
+
+@model User
+
+<div class="d-flex justify-content-between align-items-center mt-3 pl-5 pr-5 mr-5 ml-5">
+    <h1><a class="text-body text-decoration-none display-4" href="/home">RecordStore</a></h1>
+    <div class="text-center d-flex">
+        @{
+            if (ViewBag.LoggedInUser == null)
+            {
+                <div>
+                    <a class="btn btn-dark" href="/register">Register</a>
+                    <a class="btn btn-dark ml-4" href="/login">Login</a>
+                </div>
+            }
+            else
+            {
+                <h3>Welcome @ViewBag.LoggedInUser.FirstName!</h3>
+                <h5><a class="ml-4 text-dark" href="/users/myorders/@ViewBag.LoggedInUser.UserId"><u>My Orders</u></a></h5>
+                <h5><a class="ml-4 text-body text-decoration-none" href="/logout">Logout</a></h5>
+            }
+        }
+    </div>
+</div>
+<hr>
+
+<div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-3">
+                        <h2 class="text-center mb-3">Register for an account</h2>
+                        <form action="/users/register" method="post">
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for=FirstName>First Name</label>
+                                <input asp-for="FirstName" class="form-control form-control-lg" />
+                                <span class="text-danger" asp-validation-for="FirstName"></span>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="LastName">Last Name</label>
+                                <input asp-for="LastName" class="form-control form-control-lg" />
+                                <span class="text-danger" asp-validation-for="LastName"></span>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="Email">Email</label>
+                                <input asp-for="Email" class="form-control form-control-lg" />
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <label class="form-label" for="Password">Password</label>
+                                <input asp-for="Password" class="form-control form-control-lg" />
+                                <span class="text-danger" asp-validation-for="Password"></span>
+                            </div>
+                            <div class="form-outline mb-3">
+                                <label class="form-label" for="Confirm">Confirm Password</label>
+                                <input asp-for="Confirm" class="form-control form-control-lg" />
+                                <span class="text-danger" asp-validation-for="Confirm"></span>
+                            </div>
+                            @{
+                                if (ViewBag.AllUsers.Count == 0)
+                                {
+                                    <input type="hidden" asp-for="UserType" value="Administrator">
+                                }
+                                else
+                                {
+                                    <input type="hidden" asp-for="UserType" value="User">
+                                }
+                            }
+                            <div class="d-flex justify-content-center">
+                                <input type="submit" class="btn btn-dark" value="Register">
+                            </div>
+                            <p class="text-center text-muted mt-3 mb-0">Already have an account? <a href="/login"
+                                    class="fw-bold text-body"><u>Login here</u></a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
